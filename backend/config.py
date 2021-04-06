@@ -15,6 +15,7 @@ class Config:
     TEMPLATES_FOLDER = 'templates'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:postgres@localhost:5432/backend'
+    JWT_SECRET_KEY=environ.get('JWT_SECRET_KEY')
 
 
 class ProdConfig(Config):

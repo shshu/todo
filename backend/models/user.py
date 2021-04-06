@@ -1,4 +1,4 @@
-from app import db
+from app import bcrypt, db
 
 
 class User(db.Model):
@@ -11,7 +11,7 @@ class User(db.Model):
 
     def __init__(self, username, password, email):
         self.username = username
-        self.password = password
+        self.password = bcrypt.generate_password_hash((password, app.secret))
         self.email = email
 
     def __repr__(self):
