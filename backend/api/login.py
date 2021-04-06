@@ -1,28 +1,43 @@
-from flask import Blueprint, jsonify, request
+from app import app, bcrypt
+from flask import abort, jsonify, request
+from flask_jwt_extended import create_access_token, jwt_required
+from models.user import User
 
-# from models.user import User
 
-login_api = simple_page = Blueprint('login_api', __name__, template_folder='templates')
-@login_api.route('/api/login', methods=['POST'])
+def is_authenticate(username, password):
+    """
+    Authenticate a username/password - this sample routine simply checks
+    the username/password against a hard-coded table, a real-world
+    implementation would authenticate users against a database or external
+    service.
+    """
+    user = User.query.filter_by(username=username).all()
+    if not user:
+        return False
+    
+    # TODO save the admin with the == bcrypt.generate_password_hash(password): bcrypt.check_password_hash(pw_hash, 'secret')
+    if user[0].password:
+        return True
+
+    return False
+
+@app.route('/api/login', methods=['POST'])
 def login():
     """
     Authenticate user and return token
     """
     data = request.get_json()
-    import pdb;pdb.set_trace()
-    if not data:
-        return jsonify(msg="expected dict with username, password key value"), HTTPStatus.BAD_REQUEST
     if 'username' in data and 'password' in data:
         username = data['username']
         password = data['password']
-        u1 = User.query().all().filter_by(username=username).all()
         import pdb;pdb.set_trace()
-        # TODO auth this user
-        access_token = create_access_token(identity=username)
-        if access_token is not None:
-            print('access token: ' + access_token)
+        # User.query.filter_by(username='admin').all()
+        if is_authenticate(username, password):
+            access_token = create_access_token(identity=username)
             return jsonify(access_token=access_token)
         else:
+            import pdb;pdb.set_trace()
             abort(403)
     else:
         abort(400)
+    return 'hello login'
