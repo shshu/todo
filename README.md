@@ -4,6 +4,6 @@
 2. Run inside docker
     2.1 docker exec -it backend_postgres psql -U postgres
     2.2 create database backend;
-3. python manage.py db init
+3. python backend/manage.py db init
 4. python backend/manage.py db migrate
-5. python manage.py db upgrade
+5. python backend/manage.py db upgrade
