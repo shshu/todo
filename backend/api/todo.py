@@ -31,6 +31,6 @@ def todo(username):
     task = create_task_by_user_id(data['task'], usr.id)
     return jsonify(task=f'created new task {task} for user {username}'), HTTPStatus.CREATED
  
- @app.route("/api/todo/task/<int:id>", methods=['PATCH', 'DELETE'])
- def update_task(id):
-     pass
+@app.route("/api/todo/task/<int:id>", methods=['PATCH', 'DELETE'])
+def update_task(id):
+    pass
