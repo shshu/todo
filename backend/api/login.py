@@ -3,32 +3,8 @@ from http import HTTPStatus
 from app import app, bcrypt, db
 from flask import abort, jsonify, request
 from flask_jwt_extended import create_access_token, jwt_required
-from models.user import User
+from models.user import User, get_user, is_authenticate
 from sqlalchemy.exc import SQLAlchemyError
-
-
-def get_user(username):
-    user = User.query.filter_by(username=username).all()
-    if user:
-        return user[0]
-    return None
-
-def is_authenticate(username, password):
-    """
-    Authenticate a username/password - this sample routine simply checks
-    the username/password against a hard-coded table, a real-world
-    implementation would authenticate users against a database or external
-    service.
-    """
-    user = User.query.filter_by(username=username).all()
-    if not user:
-        return False
-    
-    # TODO save the admin with the == bcrypt.generate_password_hash(password): bcrypt.check_password_hash(pw_hash, 'secret')
-    if user[0].password:
-        return True
-
-    return False
 
 
 @app.route('/api/login', methods=['POST'])
@@ -40,7 +16,6 @@ def login():
     if 'username' in data and 'password' in data:
         username = data['username']
         password = data['password']
-        # User.query.filter_by(username='admin').all()
         if is_authenticate(username, password):
             access_token = create_access_token(identity=username)
             app.logger.info(f'created new token {access_token} for user {username}')

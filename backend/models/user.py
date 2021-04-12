@@ -16,3 +16,27 @@ class User(db.Model):
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
+
+
+def get_user(username):
+    user = User.query.filter_by(username=username).all()
+    if user:
+        return user[0]
+    return []
+
+def is_authenticate(username, password):
+    """
+    Authenticate a username/password - this sample routine simply checks
+    the username/password against a hard-coded table, a real-world
+    implementation would authenticate users against a database or external
+    service.
+    """
+    user = User.query.filter_by(username=username).all()
+    if not user:
+        return False
+    
+    if user[0].password:
+        return True
+
+    return False
+
