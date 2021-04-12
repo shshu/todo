@@ -1,3 +1,4 @@
+import json
 import logging
 from http import HTTPStatus
 
@@ -17,6 +18,20 @@ from api import login, todo
 # from models.task import Task
 from models import task, user
 
+
+class Encoder(json.JSONEncoder):
+    def default(self, obj):
+    
+        if isinstance(obj, task.Task):
+            return { 'id': obj.id,'user_id' : obj.user_id,  'task' : obj.task,  'is_done': obj.is_done, 'severity': obj.severity.value}
+
+        if isinstance(obj, user.User):
+            return { 'id': obj.id,'username' : obj.username,  'email' : obj.email}
+    
+        return json.JSONEncoder.default(self, obj) # default
+
+
+app.json_encoder = Encoder
 
 # get_jwt_identity()
 @app.route("/")

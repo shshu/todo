@@ -10,7 +10,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 def show_user_todo_list(user_id):
     tasks = get_tasks(user_id=user_id)
-    return jsonify(tasks=[(t.id, t.task) for t in tasks]), HTTPStatus.BAD_REQUEST
+    return jsonify(tasks=tasks), HTTPStatus.BAD_REQUEST
 
 @app.route("/api/todo/<username>", methods=['GET', 'POST'])
 # TODO need to jwt authenticate
@@ -30,3 +30,4 @@ def todo(username):
     
     task = create_task_by_user_id(data['task'], usr.id)
     return jsonify(task=f'created new task {task} for user {username}'), HTTPStatus.CREATED
+ 
