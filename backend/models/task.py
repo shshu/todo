@@ -18,8 +18,18 @@ class Task(db.Model):
     is_done = db.Column(db.Boolean, default=False, nullable=False)
     severity = db.Column(db.Enum(SevirityType), default=SevirityType.REGULAR , nullable=False)
 
-    def __init__(self, task):
+    def __init__(self, task, user_id):
         self.task = task
+        self.user_id = user_id
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
+
+def get_tasks(user_id):
+    return Task.query.filter_by(user_id=user_id).all()
+
+def create_task_by_user_id(task, user_id):
+    task = Task(task, user_id)
+    db.session.add(task)
+    db.session.commit()
+    return task.task
