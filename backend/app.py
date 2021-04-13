@@ -2,7 +2,7 @@ import json
 import logging
 from http import HTTPStatus
 
-from flask import Flask, request
+from flask import Flask, render_template, request
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, get_jwt_identity, jwt_required
 from flask_sqlalchemy import SQLAlchemy
@@ -35,10 +35,12 @@ app.json_encoder = Encoder
 
 # get_jwt_identity()
 @app.route("/")
-@jwt_required()
+#@jwt_required()
 def home():
-    username = get_jwt_identity()
-    return f"Hello World! {username}"
+    # username = get_jwt_identity()
+    #return f"Hello World! {username}"
+    return render_template('index.html')
+
 
 @app.route("/api/test")
 def test():

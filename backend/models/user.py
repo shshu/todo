@@ -15,8 +15,7 @@ class User(db.Model):
         self.email = email
 
     def __repr__(self):
-        return '<id {}>'.format(self.id)
-
+        return f'username {username}>'
 
 def get_user(username):
     user = User.query.filter_by(username=username).all()
