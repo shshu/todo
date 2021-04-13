@@ -23,8 +23,15 @@ application for TODO list
 
 ## Run application (dev)
 
-``export FLASK_ENV=development``
+create .env file in root of the project
 
-``export FLASK_APP=backend/app.py``
+```python
+SECRET_KEY=[your_secret]
+JWT_SECRET_KEY=[your_secret]
+```
 
-``flask run``
+```bash
+export FLASK_ENV=development
+export FLASK_APP=backend/app.py
+flask run
+```
