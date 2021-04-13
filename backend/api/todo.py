@@ -33,4 +33,4 @@ def todo(username):
  
 @app.route("/api/todo/task/<int:id>", methods=['PATCH', 'DELETE'])
 def update_task(id):
-    pass
+    raise NotImplementedError
