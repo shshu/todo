@@ -33,29 +33,12 @@ class Encoder(json.JSONEncoder):
 
 app.json_encoder = Encoder
 
-# get_jwt_identity()
 @app.route("/")
-#@jwt_required()
 def home():
-    # username = get_jwt_identity()
-    #return f"Hello World! {username}"
     return render_template('index.html')
 
 
-@app.route("/api/test")
+@app.route("/api/healthcheck")
 def test():
-    return f"alive!"
+    return "alive"
 
-# export FLASK_APP=backend/app.py
-# export FLASK_ENV=development
-# flask run
-# curl -X GET localhost:5000/ -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTYxNzczOTI1OSwianRpIjoiYWIxY2QzNWEtNTk5MS00MjdiLThkYTItOTAwZGE1NGNkMjkwIiwibmJmIjoxNjE3NzM5MjU5LCJ0eXBlIjoiYWNjZXNzIiwic3ViIjoiYWRtaW4iLCJleHAiOjE2MTc3NDAxNTl9.KEPXFvgGVX_ouZYYRK2G8KOmHyFlGPedh9TD-0uk35Y"
-
-
-# @app.errorhandler(404)
-# def not_found():
-#     """Page not found."""
-#     return make_response(
-#         render_template("404.html"),
-#         404
-#      )

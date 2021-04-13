@@ -1,14 +1,58 @@
 {% extends "base.html" %}
 {% block title %}TODO app{% endblock %}
-{% block head %}
-    {{ super() }}
-    <style type="text/css">
-        .important { color: #336699; }
-    </style>
-{% endblock %}
 {% block content %}
-    <h1>TODO List</h1>
-    <p class="important">
-      Welcome to my awesome homepage.
-    </p>
+    <h1><center>TODO list application</center></h1>
+    <div class=content>
+        <center><h2>API ENDPOINTS</h2></center>
+        <table >
+            <tr>
+                <th>Method</th>
+                <th>Endpoint</th>
+                <th>Description</th>
+                <th>Return</th>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>/api/login</td>
+                <td>curl -X POST -H "Content-Type: application/json" -d '{"user":"", "password":""}'</td>
+                <td>{"access_token": "jwt_token"}</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>/api/sign_up</td>
+                <td>curl -X POST -H "Content-Type: application/json" -d '{"user":"", "password":"", "email": ""}'</td>
+                <td>{"msg": "new user has been created "}</td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>/api/todo/"your_username"</td>
+                <td>curl -X POST -H "Authorization: Bearer jwt_token"</td>
+                <td>{list of all user tasks}</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>/api/todo/"your_username"</td>
+                <td>curl -X POST -H "Authorization: Bearer jwt_token" -d '{"task":"my task"}'</td>
+                <td>{"task": "created new task"}</td>
+            </tr>
+            <tr>
+                <td>PATCH</td>
+                <td>/api/todo/task/"task_id_integer"</td>
+                <td>curl -X PATCH -H "Authorization: Bearer jwt_token" -d '{any data you want to update key value}'</td>
+                <td>{"msg": "data updated"}</td>
+            </tr>
+            <tr>
+                <td>DELETE</td>
+                <td>/api/todo/task/"task_id_integer"</td>
+                <td>curl -X PATCH -H "Authorization: Bearer jwt_token"</td>
+                <td>{"msg": "Deleted"}</td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>/api/healthcheck"</td>
+                <td>curl -X GET</td>
+                <td>alive</td>
+            </tr>
+        </table>
+    </div>
 {% endblock %}
